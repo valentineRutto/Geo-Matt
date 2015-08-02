@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -136,8 +137,16 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
 
     @Override
     public void onGeoQueryError(FirebaseError error) {
+            new AlertDialog.Builder(this)
+                    .setTitle("Error")
+                    .setMessage("There was an unexpected error querying GeoFire: " + error.getMessage())
+                    .setPositiveButton(android.R.string.ok, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
 
-    }
+
+
 
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {

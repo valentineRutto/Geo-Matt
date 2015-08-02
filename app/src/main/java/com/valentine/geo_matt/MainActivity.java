@@ -2,9 +2,13 @@ package com.valentine.geo_matt;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Interpolator;
 
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -116,8 +120,14 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
 
     @Override
     public void onKeyMoved(String key, GeoLocation location) {
+        Marker marker = this.markers.get(key);
+        if (marker != null) {
+            this.animateMarkerTo(marker, location.latitude, location.longitude);
+        }
 
     }
+
+
 
     @Override
     public void onGeoQueryReady() {
@@ -133,4 +143,29 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
     public void onCameraChange(CameraPosition cameraPosition) {
 
     }
+    private void animateMarkerTo(final Marker marker, final double lat, final double lng) {
+        final Handler handler = new Handler();
+        final long start = SystemClock.uptimeMillis();
+        final long DURATION_MS = 3000;
+        final Interpolator interpolator = new AccelerateDecelerateInterpolator();
+        final LatLng startPosition = marker.getPosition();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                float elapsed = SystemClock.uptimeMillis() - start;
+                float t = elapsed/DURATION_MS;
+                float v = interpolator.getInterpolation(t);
+
+                double currentLat = (lat - startPosition.latitude) * v + startPosition.latitude;
+                double currentLng = (lng - startPosition.longitude) * v + startPosition.longitude;
+                marker.setPosition(new LatLng(currentLat, currentLng));
+
+                // if animation is not finished yet, repeat
+                if (t < 1) {
+                    handler.postDelayed(this, 16);
+                }
+            }
+        });
+    }
+
 }

@@ -1,12 +1,18 @@
 package com.valentine.geo_matt;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.firebase.client.FirebaseError;
+import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQueryEventListener;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.CameraPosition;
 
-public class MainActivity extends ActionBarActivity {
+
+public class MainActivity extends FragmentActivity implements GeoQueryEventListener, GoogleMap.OnCameraChangeListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,5 +40,35 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onKeyEntered(String key, GeoLocation location) {
+
+    }
+
+    @Override
+    public void onKeyExited(String key) {
+
+    }
+
+    @Override
+    public void onKeyMoved(String key, GeoLocation location) {
+
+    }
+
+    @Override
+    public void onGeoQueryReady() {
+
+    }
+
+    @Override
+    public void onGeoQueryError(FirebaseError error) {
+
+    }
+
+    @Override
+    public void onCameraChange(CameraPosition cameraPosition) {
+
     }
 }

@@ -52,6 +52,8 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
         this.map.setOnCameraChangeListener(this);
 
         Firebase.setAndroidContext(this);
+
+        this.geoFire = new GeoFire(new Firebase(Geo_Matt_Ref));
     }
 
     @Override

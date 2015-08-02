@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -54,6 +55,8 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
         Firebase.setAndroidContext(this);
 
         this.geoFire = new GeoFire(new Firebase(Geo_Matt_Ref));
+        this.geoQuery = this.geoFire.queryAtLocation(INITIAL_CENTER, 1);
+        this.markers = new HashMap<String, Marker>();
     }
 
     @Override

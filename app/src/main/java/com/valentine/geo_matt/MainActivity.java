@@ -107,7 +107,11 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
 
     @Override
     public void onKeyExited(String key) {
-
+        Marker marker = this.markers.get(key);
+        if (marker != null) {
+            marker.remove();
+            this.markers.remove(key);
+        }
     }
 
     @Override

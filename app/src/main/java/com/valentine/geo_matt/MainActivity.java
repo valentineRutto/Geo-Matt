@@ -153,8 +153,13 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
         this.searchCircle.setRadius(radius);
         this.geoQuery.setCenter(new GeoLocation(center.latitude, center.longitude));
         // radius in km
-        this.geoQuery.setRadius(radius/1000);
+        this.geoQuery.setRadius(radius / 1000);
     }
+
+ private double zoomLevelToRadius(double zoomLevel) {
+        return 16384000/Math.pow(2, zoomLevel);
+    }
+
 
     private void animateMarkerTo(final Marker marker, final double lat, final double lng) {
         final Handler handler = new Handler();

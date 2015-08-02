@@ -20,6 +20,7 @@ import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -99,8 +100,10 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
 
     @Override
     public void onKeyEntered(String key, GeoLocation location) {
+            Marker marker = this.map.addMarker(new MarkerOptions().position(new LatLng(location.latitude, location.longitude)));
+            this.markers.put(key, marker);
+        }
 
-    }
 
     @Override
     public void onKeyExited(String key) {

@@ -60,6 +60,16 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        this.geoQuery.removeAllListeners();
+        for (Marker marker: this.markers.values()) {
+            marker.remove();
+        }
+        this.markers.clear();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);

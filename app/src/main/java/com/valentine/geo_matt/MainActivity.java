@@ -145,13 +145,17 @@ public class MainActivity extends FragmentActivity implements GeoQueryEventListe
                     .show();
         }
 
-
-
-
     @Override
     public void onCameraChange(CameraPosition cameraPosition) {
-
+        LatLng center = cameraPosition.target;
+        double radius = zoomLevelToRadius(cameraPosition.zoom);
+        this.searchCircle.setCenter(center);
+        this.searchCircle.setRadius(radius);
+        this.geoQuery.setCenter(new GeoLocation(center.latitude, center.longitude));
+        // radius in km
+        this.geoQuery.setRadius(radius/1000);
     }
+
     private void animateMarkerTo(final Marker marker, final double lat, final double lng) {
         final Handler handler = new Handler();
         final long start = SystemClock.uptimeMillis();

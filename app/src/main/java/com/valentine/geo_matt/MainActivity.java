@@ -6,13 +6,30 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.firebase.client.FirebaseError;
+import com.firebase.geofire.GeoFire;
 import com.firebase.geofire.GeoLocation;
+import com.firebase.geofire.GeoQuery;
 import com.firebase.geofire.GeoQueryEventListener;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.Marker;
+
+import java.util.Map;
 
 
 public class MainActivity extends FragmentActivity implements GeoQueryEventListener, GoogleMap.OnCameraChangeListener  {
+
+    private static final GeoLocation INITIAL_CENTER = new GeoLocation(-1.283330,36.8166700);
+    private static final int INITIAL_ZOOM_LEVEL = 14;
+    private static final String Geo_Matt_Ref = "https://geo-matt.firebaseIO.com";
+
+    private GoogleMap map;
+    private Circle searchCircle;
+    private GeoFire geoFire;
+    private GeoQuery geoQuery;
+
+    private Map<String,Marker> markers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

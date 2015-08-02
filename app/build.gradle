@@ -18,8 +18,12 @@ android {
         }
     }
 }
-
+packagingOption{
+    exclude 'META-INF/LICENSE'
+    exclude 'META-INF/LICENSE-FIREBASE.txt'
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:22.2.1'
+    compile 'com.firebase:firebase-client-android:2.2.3+'
 }
